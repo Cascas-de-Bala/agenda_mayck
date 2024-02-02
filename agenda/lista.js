@@ -1,52 +1,71 @@
 import React from 'react';
-import {SectionList, StyleSheet, Text, View} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    SectionList,
+    StatusBar,
+    Image,
+} from 'react-native';
+import { DATA } from './dados';
+
+
+const App = () => (
+    <SafeAreaView style={styles.container}>
+        <SectionList
+            sections={DATA}
+            renderItem={({ section: { nome, data, img } }) => (
+                <View style={styles.item}>
+                    <Image style={styles.img} source={img} />
+                    <View style={styles.cttTxt}>
+                        <Text style={styles.header}>{nome}</Text>
+                        {/* <Text style={styles.nome}>{data}</Text> */}
+                    </View>
+                </View>
+            )}
+
+        />
+    </SafeAreaView>
+);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22,
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
+    container: {
+        flex: 1,
+
+        margin: 20,
+        
+    },
+    item: {
+        backgroundColor: '#2D2D2F',
+        padding: 10,
+        marginVertical: 8,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 8
+        
+    },
+    header: {
+        fontSize: 25,
+        color: 'white',
+        marginLeft: 10
+
+    },
+    nome: {
+        fontSize: 24,
+   
+    },
+    img: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+
+    },
+    cttTxt: {
+        flexWrap: 'wrap',
+        color: 'white'
+    }
 });
 
-const SectionListBasics = () => {
-  return (
-    <View style={styles.container}>
-      <SectionList
-        sections={[
-          {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-          {
-            title: 'J',
-            data: [
-              'Jackson',
-              'James',
-              'Jillian',
-              'Jimmy',
-              'Joel',
-              'John',
-              'Julie',
-            ],
-          },
-        ]}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-        renderSectionHeader={({section}) => (
-          <Text style={styles.sectionHeader}>{section.title}</Text>
-        )}
-        keyExtractor={item => `basicListEntry-${item}`}
-      />
-    </View>
-  );
-};
-
-export default SectionListBasics;
+export default App;
