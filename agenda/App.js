@@ -1,23 +1,37 @@
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, StatusBar, Image,  } from 'react-native';
+import { StyleSheet, Text, View, TextInput, StatusBar, Image, Button } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Lista from './lista';
+import React, { useState } from 'react';
+
+
 
 export default function App() {
+
+
+
+
   return (
+    
     <View style={styles.container}>
       <View style={styles.pesquisa} >
-      <MaterialIcons name="menu" size={30} color="white" style={styles.menu}/>
-      <TextInput style={{height: 40}}
-        placeholder="Type here to translate!"
+        <View>
+          <MaterialIcons name="menu" size={30} color="white" style={styles.menu} />
+        </View>
+
+        <TextInput style={{ height: 50, color: '#000', width: 500 }}
+          placeholder="Pesquisar"
         />
 
       </View>
       <Lista style={styles.lista} />
       <StatusBar style="auto" />
+
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -32,15 +46,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     borderRadius: 50,
     display: 'flex',
-    justifyContent: 'center',
+    color: 'white',
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   menu: {
     marginHorizontal: 10
   },
   TextInput: {
     color: 'white'
-  }
+  },
+  // teste: {
+  //   width: 100,
+  //   height: 100,
+  //   position: 'absolute',
+  //   zIndex: zIndex,
+  // }
 
 });
