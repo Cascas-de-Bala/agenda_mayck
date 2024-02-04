@@ -3,12 +3,21 @@ export const DATA = [
         id: [0],
         nome: 'Mayck',
         data: ['17 98809 0058'],
-        img: require('./assets/mayck.png')
+        img: require('./assets/mayck.png'),
+        apelido: 'May_Edu',
+        email: 'mayck22.03@hotmail.com',
+        local: 'Votuporanga - SP',
+        info: 'null'
     },
     {
         id: [1],
         nome: 'João Pedro',
         data: ['11 11111 1111'],
-        img: require('./assets/jp.png')
+        img: require('./assets/jp.png'),
+        apelido: 'null',
+        email: 'null',
+        local: 'Votuporanga - SP',
+        info: 'null'
     },
 ];
+

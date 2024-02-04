@@ -8,18 +8,41 @@ export default function App() {
   const navigation = useNavigation();
   const route = useRoute();
   const idRecebido = route.params.id
-  const NomeRecebido = route.params.nome 
+  const NomeRecebido = route.params.nome
   const imgRecebido = route.params.img
+  const telRecebido = route.params.tel
+  const EmailRecebido = route.params.email
+  const ApelidoRecebido = route.params.apelido
+  const LocalRecebido = route.params.local
 
 
-  const contact = DATA.indexOf(idRecebido)
   return (
     <View style={styles.container}>
-      <Text>{idRecebido}</Text>
-      <Text>{NomeRecebido}</Text>
-      <Image source={imgRecebido} style={styles.img}/>
+      {/* <Text>{idRecebido}</Text> */}
+      <Image source={imgRecebido} style={styles.img} />
+      <View>
+        <Text>Nome:</Text>
+        <Text>{NomeRecebido}</Text>
+      </View>
+      <View>
+        <Text>E-mail:</Text>
+        <Text>{EmailRecebido}</Text>
+      </View>
+      <View>
+        <Text>Apelido:</Text>
+        <Text>{ApelidoRecebido}</Text>
+      </View>
+      <View>
+        <Text>Telefone:</Text>
+        <Text>{telRecebido}</Text>
+      </View>
+      <View>
+        <Text>Apelido:</Text>
+        <Text>{ApelidoRecebido}</Text>
+      </View>
+      
+      <Text>{ }</Text>
 
-     
       <StatusBar style="auto" />
     </View>
   );
@@ -37,5 +60,5 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
 
-},
+  },
 });
