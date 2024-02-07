@@ -4,11 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import Lista from './lista'
 
 export default function App() {
-    const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Lista/>
-      <StatusBar style="auto" />
+      <StatusBar style='light' />
     </View>
   );
 }

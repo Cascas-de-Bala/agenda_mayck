@@ -21,7 +21,7 @@ export default function Tela1() {
     return (
         <SafeAreaView style={styles.container}>
             <SectionList
-                sections={DATA}
+                sections={DATA.sort((a, b) => a.nome.localeCompare(b.nome))}
                 renderItem={({ section: { id, nome, img , data, apelido, email, local, info } }) => (
                     <Pressable onPress={() => navigation.navigate("Tela 2", {id: id, nome: nome, img: img , tel: data, apelido: apelido, email: email, local: local, info: info})} >
                         <View style={styles.item} >

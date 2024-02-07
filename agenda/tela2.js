@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import { DATA } from './dados';
 
 export default function App() {
-  const navigation = useNavigation();
+
   const route = useRoute();
   const idRecebido = route.params.id
   const NomeRecebido = route.params.nome

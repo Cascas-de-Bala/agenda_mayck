@@ -1,5 +1,3 @@
-
-
 import 'react-native-gesture-handler';
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { Header, createStackNavigator } from "@react-navigation/stack";

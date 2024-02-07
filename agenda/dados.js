@@ -1,21 +1,3 @@
-// import sqlite from 'react-native-sqlite-storage';
-
-// const db = sqlite.openDatabase({
-//     name: 'dados.db',
-//     location: 'default',
-// });
-
-// db.transaction((tx) => {
-//     tx.executeSql(
-//         'CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT)'
-//     )
-// })
-
-// db.transaction((tx) => {
-//     tx.executeSql('INSERT INTO users (name, email) VALUES (?, ?)' , ['mayck'], ['mayck22.03@hotmail.com'])
-// })
-
-
 
 export const DATA = [
     {
