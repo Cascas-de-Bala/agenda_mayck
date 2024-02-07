@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
       },
       textInput: {
         color: 'white',
-        marginStart: 10
+        marginStart: 10,
+        width: '100%'
       }
 });
 
