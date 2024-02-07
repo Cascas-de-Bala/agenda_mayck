@@ -1,3 +1,22 @@
+// import sqlite from 'react-native-sqlite-storage';
+
+// const db = sqlite.openDatabase({
+//     name: 'dados.db',
+//     location: 'default',
+// });
+
+// db.transaction((tx) => {
+//     tx.executeSql(
+//         'CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT)'
+//     )
+// })
+
+// db.transaction((tx) => {
+//     tx.executeSql('INSERT INTO users (name, email) VALUES (?, ?)' , ['mayck'], ['mayck22.03@hotmail.com'])
+// })
+
+
+
 export const DATA = [
     {
         id: [0],
@@ -7,17 +26,47 @@ export const DATA = [
         apelido: 'May_Edu',
         email: 'mayck22.03@hotmail.com',
         local: 'Votuporanga - SP',
-        info: 'null'
+        info: 'Se quiser sim mn'
     },
     {
         id: [1],
-        nome: 'João Pedro',
-        data: ['11 11111 1111'],
-        img: require('./assets/jp.png'),
-        apelido: 'null',
-        email: 'null',
+        nome: 'Erick Beran',
+        data: ['17 98171 8722'],
+        img: require('./assets/erick.png'),
+        apelido: '?',
+        email: 'beran@email.com',
         local: 'Votuporanga - SP',
-        info: 'null'
+        info: 'ok'
+    },
+    {
+        id: [2],
+        nome: 'Felipe Moraes',
+        data: ['17 98227 6773'],
+        img: require('./assets/moraes.png'),
+        apelido: 'Moraes',
+        email: 'moraes@email.com',
+        local: 'Votuporanga - SP',
+        info: 'i'
+    },
+    {
+        id: [3],
+        nome: 'João Pedro',
+        data: ['17 99150 8653'],
+        img: require('./assets/jp.png'),
+        apelido: 'Jão',
+        email: 'jp@email.com',
+        local: 'Votuporanga - SP',
+        info: 'jp'
+    },
+    {
+        id: [4],
+        nome: 'João Victor',
+        data: ['17 99123 7982'],
+        img: require('./assets/jv.png'),
+        apelido: 'casca de bala',
+        email: 'jv@email.com',
+        local: 'Votuporanga - SP',
+        info: 'Um casca de bala'
     },
 ];
 
