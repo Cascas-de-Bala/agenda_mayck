@@ -7,34 +7,44 @@ import {
     SectionList,
     StatusBar,
     Image,
+    Button,
+    Pressable
 } from 'react-native';
 import { DATA } from './dados';
+import { useNavigation } from "@react-navigation/native";
 
 
-const App = () => (
-    <SafeAreaView style={styles.container}>
-        <SectionList
-            sections={DATA}
-            renderItem={({ section: { nome, data, img } }) => (
-                <View style={styles.item}>
-                    <Image style={styles.img} source={img} />
-                    <View style={styles.cttTxt}>
-                        <Text style={styles.header}>{nome}</Text>
-                        {/* <Text style={styles.nome}>{data}</Text> */}
-                    </View>
-                </View>
-            )}
+export default function Tela1() {
+    const navigation = useNavigation();
 
-        />
-    </SafeAreaView>
-);
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <SectionList
+                sections={DATA.sort((a, b) => a.nome.localeCompare(b.nome))}
+                renderItem={({ section: { id, nome, img , data, apelido, email, local, info } }) => (
+                    <Pressable onPress={() => navigation.navigate("Tela 2", {id: id, nome: nome, img: img , tel: data, apelido: apelido, email: email, local: local, info: info})} >
+                        <View style={styles.item} >
+                            <Image style={styles.img} source={img} />
+                            <View style={styles.cttTxt}>
+                                <Text style={styles.header}>{nome}</Text>
+                              
+                               
+                            </View>
+                        </View>
+                    </Pressable>
+                )}
+
+            />
+        </SafeAreaView>
+    )
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         margin: 20,
-        
+
     },
     item: {
         backgroundColor: '#2D2D2F',
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 8
-        
+
     },
     header: {
         fontSize: 25,
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
     },
     nome: {
         fontSize: 24,
-   
+
     },
     img: {
         width: 50,
@@ -68,4 +78,3 @@ const styles = StyleSheet.create({
     }
 });
 
-export default App;
