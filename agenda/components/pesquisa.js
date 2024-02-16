@@ -16,12 +16,12 @@ var height = Dimensions.get('window').height; //full height
 export default function Tela1() {
   const navigation = useNavigation();
 
-
   return (
     <View style={styles.container}>
       <View style={styles.pesquisa}>
-        <TouchableOpacity onPress={() => navigation.navigate('Tela teste')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Tela 3')}>
           <Entypo name="menu" size={24} color="white" />
+          
         </TouchableOpacity>
         <TextInput placeholder="Pesquisar" style={styles.textInput} placeholderTextColor={'white'} />
       </View>

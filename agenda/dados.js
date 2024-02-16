@@ -1,5 +1,5 @@
 
-export const DATA = [
+export let DATA = [
     {
         id: [0],
         nome: 'Mayck',
