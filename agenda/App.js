@@ -8,6 +8,7 @@ import texte from './pages/tela3'
 import editar from './pages/editar'
 import * as ScreenOrientation from 'expo-screen-orientation';
 
+
 async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_DOWN);
 }
@@ -29,3 +30,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
