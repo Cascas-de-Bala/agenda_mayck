@@ -185,12 +185,14 @@ export default function App() {
           <Text style={styles.modalTitle}>
             {editingContactId ? 'Editar Contato' : 'Novo Contato'}
           </Text>
-          <TouchableOpacity onPress={pickImage}>
-            <Text style={styles.input}>Selecionar Imagem</Text>
-          </TouchableOpacity>
-          {image && (
-            <Image style={styles.image} source={{ uri: image || setImage}} />
-          )}
+          <View style={styles.containerImg}>
+            {image && (
+              <Image style={styles.imgNovoContato} source={{ uri: image || setImage }} />
+            )}
+            <TouchableOpacity onPress={pickImage}>
+              <Text style={styles.inputImage}>Selecionar Imagem</Text>
+            </TouchableOpacity>
+          </View>
           <TextInput
             style={styles.input}
             placeholderTextColor={'white'}
@@ -263,7 +265,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20
+    margin: 10
 
   },
   headerContainer: {
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
   contactContainer: {
     marginBottom: 20,
     width: width,
-    height: 53,
+    height: 'auto',
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -302,10 +304,11 @@ const styles = StyleSheet.create({
 
   },
   contactName: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    margin: 0
+    margin: 0,
+    marginStart: 15
   },
   deleteButton: {
     alignItems: 'center',
@@ -327,7 +330,7 @@ const styles = StyleSheet.create({
 
   },
   addButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#022e75',
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -373,9 +376,21 @@ const styles = StyleSheet.create({
   txtContainerBottom: {
     color: 'white',
   },
-  image: {
-    width: 50,
-    height: 50
+  imgNovoContato: {
+    width: 150,
+    height: 150,
+    alignItems: 'center',
+    borderRadius: 100,
+  },
+  containerImg: {
+    alignItems: 'center',
+  },
+  inputImage: {
+    backgroundColor: '#4287f5',
+    padding: 6,
+    color: 'white',
+    borderRadius: 5,
+    margin: 5
   }
 });
 
