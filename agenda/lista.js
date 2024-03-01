@@ -8,7 +8,12 @@ import {
   FlatList,
   Modal,
   Button,
+  Alert,
+  Image
 } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import { Dimensions } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
@@ -22,15 +27,26 @@ export default function App() {
   const [editingContactPhone, setEditingContactPhone] = useState('');
   const [editingContactEmail, setEditingContactEmail] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState(null);
+
 
   const sortContacts = () => {
-    setContacts(
-      contacts.sort((a, b) => a.name.localeCompare(b.name))
-    );
+    setContacts(contacts.sort((a, b) => a.name.localeCompare(b.name)));
   };
 
   const handleAddContact = () => {
     if (contactName.trim() === '' || contactPhone.trim() === '' || !isValidPhoneNumber(contactPhone)) {
+      Alert.alert('Alerta', 'Preencha corretamente os dados', [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('CANCEL Pressed');
+            setModalVisible(false);
+          },
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ]);
       return;
     }
 
@@ -40,15 +56,15 @@ export default function App() {
       lastName: contactLastName,
       phone: formatPhoneNumber(contactPhone),
       email: contactEmail,
+      image: image, // Add the image URI to the new contact object
     };
 
-    setContacts(
-      [newContact, ...contacts].sort((a, b) => a.name.localeCompare(b.name))
-    );
+    setContacts([newContact, ...contacts].sort((a, b) => a.name.localeCompare(b.name)));
     setContactName('');
     setContactLastName('');
     setContactPhone('');
     setContactEmail('');
+    setImage(null); // Reset the image state after adding a contact
     setModalVisible(false);
   };
 
@@ -64,12 +80,13 @@ export default function App() {
     const updatedContacts = contacts.map((contact) =>
       contact.id === editingContactId
         ? {
-            ...contact,
-            name: editingContactName,
-            lastName: editingContactLastName,
-            phone: formatPhoneNumber(editingContactPhone),
-            email: editingContactEmail,
-          }
+          ...contact,
+          name: editingContactName,
+          lastName: editingContactLastName,
+          phone: formatPhoneNumber(editingContactPhone),
+          email: editingContactEmail,
+          image: image, // Update the image URI if one is selected
+        }
         : contact
     );
 
@@ -79,6 +96,7 @@ export default function App() {
     setEditingContactLastName('');
     setEditingContactPhone('');
     setEditingContactEmail('');
+    setImage(null); // Reset the image state after editing a contact
     setModalVisible(false);
   };
 
@@ -93,15 +111,13 @@ export default function App() {
     setEditingContactLastName(contact.lastName);
     setEditingContactPhone(contact.phone);
     setEditingContactEmail(contact.email);
+    setImage(contact.image); // Set the image URI for editing
     setModalVisible(true);
   };
 
   const formatPhoneNumber = (phoneNumber) => {
-    // Adiciona a máscara no telefone (99) 99999-9999
-    return phoneNumber.replace(
-      /(\d{2})(\d{5})(\d{4})/,
-      '($1) $2-$3'
-    );
+    // Add phone number formatting logic here
+    return phoneNumber; // Replace with your desired formatting function
   };
 
   const isValidPhoneNumber = (phoneNumber) => {
@@ -111,40 +127,46 @@ export default function App() {
 
   useEffect(() => {
     sortContacts();
-  
-  
-//   const contact1 = 
-//     {
-//       id: 1,
-//       name: 'Mayck',
-//       lastName: 'Edu',
-//       phone: '17 98809 0058',
-//       email: 'mayck22.03@hotmail.com',
+  }, []);
 
-//     };
-//     setContacts([contact1]);
-//   []
-// })
-  
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      
-      <FlatList 
+
+      <FlatList
         data={contacts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-
-          <TouchableOpacity style={styles.contactContainer} onPress={() => handleOpenEditModal(item)} >
-            
+          <TouchableOpacity style={styles.contactContainer} onPress={() => handleOpenEditModal(item)}>
+            <Image source={{ uri: item.image }} style={{ width: 50, height: 50, borderRadius: 50 }} />
             <Text style={styles.contactName}>{item.name} {item.lastName}</Text>
-            
             {/* <TouchableOpacity
+              style={styles.editButton}
+              onPress={() => handleOpenEditModal(item)}
+            >
+              <Text style={styles.editButtonText}>✎</Text>
+            </TouchableOpacity> */}
+            <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => handleDeleteContact(item.id)}
             >
               <Text style={styles.deleteButtonText}>🗑</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </TouchableOpacity>
         )}
         style={styles.list}
@@ -159,11 +181,19 @@ export default function App() {
       </View>
       <Modal visible={modalVisible} animationType="slide">
         <View style={styles.modalContainer}>
+
           <Text style={styles.modalTitle}>
-            {editingContactId ? 'Editar Contato' : 'Adicionar Contato'}
+            {editingContactId ? 'Editar Contato' : 'Novo Contato'}
           </Text>
+          <TouchableOpacity onPress={pickImage}>
+            <Text style={styles.input}>Selecionar Imagem</Text>
+          </TouchableOpacity>
+          {image && (
+            <Image style={styles.image} source={{ uri: image || setImage}} />
+          )}
           <TextInput
             style={styles.input}
+            placeholderTextColor={'white'}
             placeholder="Nome"
             value={editingContactName || contactName}
             onChangeText={
@@ -172,6 +202,7 @@ export default function App() {
           />
           <TextInput
             style={styles.input}
+            placeholderTextColor={'white'}
             placeholder="Sobrenome"
             value={editingContactLastName || contactLastName}
             onChangeText={
@@ -182,6 +213,7 @@ export default function App() {
           />
           <TextInput
             style={styles.input}
+            placeholderTextColor={'white'}
             placeholder="Telefone"
             value={editingContactPhone || contactPhone}
             onChangeText={
@@ -194,6 +226,7 @@ export default function App() {
           />
           <TextInput
             style={styles.input}
+            placeholderTextColor={'white'}
             placeholder="E-mail"
             value={editingContactEmail || contactEmail}
             onChangeText={
@@ -205,26 +238,33 @@ export default function App() {
           />
           <View style={styles.buttonContainer}>
             {editingContactId && (
-              <Button title="Salvar" onPress={handleEditContact} />
+              <TouchableOpacity title="Salvar" onPress={handleEditContact} style={styles.btnContainerBottom} >
+                <Entypo name="save" size={24} color="white" />
+                <Text style={styles.txtContainerBottom}>Salvar</Text>
+              </TouchableOpacity>
             )}
             {!editingContactId && (
-              <Button title="Adicionar" onPress={handleAddContact} />
+              <TouchableOpacity onPress={handleAddContact} style={styles.btnContainerBottom}>
+                <Entypo name="add-user" size={24} color="white" />
+                <Text style={styles.txtContainerBottom}>Salvar</Text>
+              </TouchableOpacity>
             )}
-            <Button title="Cancelar" onPress={() => setModalVisible(false)} />
-            {/* <Button title="Delete" onPress={() => setModalVisible(false) && handleDeleteContact(item.id)}/> */}
-            
+            <TouchableOpacity title="Cancelar" onPress={() => setModalVisible(false)} style={styles.btnContainerBottom}>
+              <Entypo name="warning" size={24} color="white" />
+              <Text style={styles.txtContainerBottom}>Cancelar</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
     </View>
   );
-})
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 50,
+    margin: 20
+
   },
   headerContainer: {
     marginBottom: 20,
@@ -248,22 +288,26 @@ const styles = StyleSheet.create({
   },
   contactContainer: {
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    paddingBottom: 10,
+    width: width,
+    height: 53,
+    padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    margin: 5,
+    backgroundColor: '#171719',
+    borderColor: '#2D2D2F',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderStyle: 'solid'
+
   },
   contactName: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'white',
+    margin: 0
   },
   deleteButton: {
-    backgroundColor: '#F44336',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -279,6 +323,8 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     zIndex: 1,
+
+
   },
   addButton: {
     backgroundColor: '#4CAF50',
@@ -294,23 +340,44 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     padding: 20,
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: 'white'
   },
   input: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+
     marginBottom: 20,
     paddingHorizontal: 10,
+    color: 'white',
+
   },
   buttonContainer: {
+    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    marginBottom: 0
+
   },
-})}
+  btnContainerBottom: {
+    border: 'none',
+    color: 'white',
+    alignItems: 'center'
+
+  },
+  txtContainerBottom: {
+    color: 'white',
+  },
+  image: {
+    width: 50,
+    height: 50
+  }
+});
+
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height

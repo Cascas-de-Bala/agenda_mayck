@@ -19,7 +19,7 @@ export default function Tela1() {
   return (
     <View style={styles.container}>
       <View style={styles.pesquisa}>
-        <TouchableOpacity onPress={() => navigation.navigate('Tela 3')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Opcoes')}>
           <Entypo name="menu" size={24} color="white" />
           
         </TouchableOpacity>
