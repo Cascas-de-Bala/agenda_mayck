@@ -113,18 +113,18 @@ export default function App() {
     sortContacts();
   
   
-  const contact1 = 
-    {
-      id: 1,
-      name: 'Mayck',
-      lastName: 'Edu',
-      phone: '17 98809 0058',
-      email: 'mayck22.03@hotmail.com',
+//   const contact1 = 
+//     {
+//       id: 1,
+//       name: 'Mayck',
+//       lastName: 'Edu',
+//       phone: '17 98809 0058',
+//       email: 'mayck22.03@hotmail.com',
 
-    };
-    setContacts([contact1]);
-  []
-})
+//     };
+//     setContacts([contact1]);
+//   []
+// })
   
 
   return (
@@ -218,7 +218,7 @@ export default function App() {
       </Modal>
     </View>
   );
-}
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -313,4 +313,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-});
+})}

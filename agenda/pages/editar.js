@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, Text } from 'react-native';
 import Camera from './camera'
-import { DATA } from '../dados';
+import { DATA } from './data.js';
 
 
 export default function Editar() {
@@ -20,7 +20,7 @@ export default function Editar() {
     return (
         <View>
             <Text style={{color: 'white'}}>Teste</Text>
-            <Button onPress={handleClick} title='teste'/>
+            <Button onPress={handleClick} title=''/>
         </View>
     );
 }
